@@ -3,7 +3,7 @@
 
 ## List apps
 ```PowerShell
-Get-AppxPackage | Select DisplayName | Sort DisplayName                    # List of installed apps for current user
+Get-AppxPackage | Select Name | Sort Name                                  # List of installed apps for current user
 Get-AppxProvisionedPackage -Online | Select DisplayName | Sort DisplayName # List of apps installed in system and will be installed for every new user
 
 Remove-AppxPackage -Package $PackageFullName                               # Remove app package for current user (new users will have this app installed)
@@ -26,6 +26,7 @@ save as ps1 and execute:
 $AppsList = "Microsoft.3DBuilder",
 "Microsoft.GetHelp",
 "Microsoft.Getstarted",
+"Microsoft.ConnectivityStore",
 "Microsoft.MicrosoftOfficeHub",
 "Microsoft.Office.OneNote",
 "Microsoft.People",
@@ -40,6 +41,7 @@ $AppsList = "Microsoft.3DBuilder",
 "Microsoft.FreshPaint",
 "Microsoft.Microsoft3DViewer",
 "Microsoft.MixedReality.Portal",
+"Microsoft.OneConnect",
 "Microsoft.Office.OneNote",
 "Microsoft.Office.Sway ",
 "Microsoft.Print3D",
@@ -73,7 +75,7 @@ ForEach ($App in $AppsList)
     }
     Else
     {
-        Write-Verbose "Unable To Find Provisioned Package: $App"
+        Write-Host "Unable To Find Provisioned Package: $App"
     }
 
 }
