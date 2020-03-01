@@ -1,6 +1,6 @@
 ## AUTOCONF
 #
-# powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('http://bit.ly/1kEgbuH')"
+# powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/giovannimarinaccio/WindowsNotes/master/autoconf/autoconf.ps1')"
 #
 
 function Autoconf-Main($filePath)
