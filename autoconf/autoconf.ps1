@@ -51,8 +51,26 @@ function Autoconf-Main($filePath)
     Get-FileFromUrl "$scripts_base_url/config_win_settings.ps1" "$autoconf_script_dir\config_win_settings.ps1"
     
     # run downloaded scripts
-    Invoke-Expression -Command "$autoconf_script_dir\install_base_software.ps1"
-    Invoke-Expression -Command "$autoconf_script_dir\config_win_settings.ps1"
+    $title    = 'AUTOCONF'
+    $question = 'Do you want to install base software ?'
+    $choices  = '&Yes', '&No'
+
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
+    if ($decision -eq 0) {
+        Write-Host 'confirmed'
+        Invoke-Expression -Command "$autoconf_script_dir\install_base_software.ps1"
+    } else {
+        Write-Host 'cancelled'
+    }
+    
+    $question = 'Do you want to config win settings ?'
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
+    if ($decision -eq 0) {
+        Write-Host 'confirmed'
+        Invoke-Expression -Command "$autoconf_script_dir\config_win_settings.ps1"
+    } else {
+        Write-Host 'cancelled'
+    }
     
     Write-Host "[AUTOCONF] Autoconfig Ended"
 }
