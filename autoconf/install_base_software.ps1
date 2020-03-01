@@ -1,6 +1,5 @@
 function BaseSoftware-Install ()
 {
-    Clear-Host
     Write-Host "[BASE-SOFTWARE] working path: $PSScriptRoot"
     Write-Host "[BASE-SOFTWARE] using temp folder: $env:TEMP"
     $autoconf_script_dir = $PSScriptRoot
