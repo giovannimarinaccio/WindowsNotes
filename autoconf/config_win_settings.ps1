@@ -3,7 +3,7 @@ function Config-WinSettings (){
     
     setUAC $false
     turnOffMicrosoftConsumerExperience 
-    setDesktopIcons $true $false $false $false $true
+    setDesktopIcons $true $true $false $false $true
     setExplorerFilesPrefs $true $false $false
 }
 
