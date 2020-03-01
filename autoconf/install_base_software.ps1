@@ -25,8 +25,10 @@ function BaseSoftware-Install ()
             $cmd = $section[$cmd_key]
             $inst_file = "$sys_temp\$dst_name"
             Get-FileFromUrl $src_url $inst_file
+            Write-Host "[BASE-SOFTWARE] Starting $section_key installer"
             Invoke-Expression $cmd
-            Start-Sleep -s 35
+            Write-Host "[BASE-SOFTWARE] $section_key installed"
+            Start-Sleep -s 5
             Remove-Item $inst_file -Force
         }
     }
