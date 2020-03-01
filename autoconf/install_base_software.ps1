@@ -1,10 +1,36 @@
 function BaseSoftware-Install ()
 {
-    Write-Host "$PSScriptRoot"
-    $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-    Write-Host "$PSScriptRoot"
-    # $ini = Get-IniContent "$autoconf_script_dir\install_base_software.ini"
-    # Write-Host $ini
+    Write-Host "[BASE-SOFTWARE] working path: $PSScriptRoot"
+    Write-Host "[BASE-SOFTWARE] using temp folder: $env:TEMP"
+    $autoconf_script_dir = $PSScriptRoot
+    $sys_temp = $env:TEMP
+    $ini = Get-IniContent "$autoconf_script_dir\install_base_software.ini"
+
+    $src_url_key = 'src_url'
+    $dst_name_key = 'dst_name'
+    $cmd_key = 'cmd'
+    
+    Write-Host "[BASE-SOFTWARE] $ini.Keys"
+    Write-Host "[BASE-SOFTWARE] $ini"
+    
+    # $ini | Format-Table
+
+    Foreach ($section_key in $ini.Keys)
+    {
+        if ($section_key -ne "No-Section"){
+            Write-Host "[BASE-SOFTWARE] Installing $section_key"
+            $section = $ini[$section_key]
+            #$section | Format-Table
+            $src_url = $section[$src_url_key]
+            $dst_name = $section[$dst_name_key]
+            $cmd = $section[$cmd_key]
+            $inst_file = "$sys_temp\$dst_name"
+            Get-FileFromUrl $src_url $inst_file
+            Invoke-Expression $cmd
+            Start-Sleep -s 35
+            Remove-Item $inst_file -Force
+        }
+    }
 }
 
 function Get-IniContent ($filePath)
@@ -42,6 +68,22 @@ function Get-IniContent ($filePath)
         }  
     }
     return $ini
+}
+
+function Get-FileFromUrl ($src_url, $dst_filePath)
+{
+    Write-Host "[BASE-SOFTWARE] Downloading: [$src_url] to: [$dst_filePath]"
+
+    if (Get-Command 'Invoke-Webrequest')
+    {
+         $ret = Invoke-WebRequest -URI $src_url -OutFile $dst_filePath
+    }
+    else
+    {
+        $WebClient = New-Object System.Net.WebClient
+        $ret = $webclient.DownloadFile($src_url, $dst_filePath)
+    }
+    return $ret
 }
 
 BaseSoftware-Install
