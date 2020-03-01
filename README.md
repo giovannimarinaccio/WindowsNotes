@@ -7,6 +7,6 @@
 
     
 
-## Reg2Powershel
+## Reg2Powershell
 
 [OnlineConverter](https://reg2ps.azurewebsites.net/)
