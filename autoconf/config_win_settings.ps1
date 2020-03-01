@@ -3,8 +3,9 @@ function Config-WinSettings (){
     
     setUAC $false
     turnOffMicrosoftConsumerExperience 
-    setDesktopIcons $true $true $false $false $true
+    setDesktopIcons $true $false $false $false $true
     setExplorerFilesPrefs $true $false $false
+    removeWinBloatware
 }
 
 function setExplorerFilesPrefs (
@@ -118,6 +119,128 @@ function setUAC($enbled){
     if ($enabled -eq $true ){ Write-Host "[WINSETTINGS] UAC turned ON" }
     else{ Write-Host "[WINSETTINGS] UAC turned OFF" }
     
+}
+
+function removeWinBloatware(){
+    
+    Write-Host "[WINSETTINGS] Removing Windows Bloatware ..."
+    $packages = @(
+
+        # Default Windows 10 apps
+        "Microsoft.3DBuilder",
+        "Microsoft.Microsoft3DViewer",
+        "Microsoft.Advertising.Xaml",
+        "Microsoft.BingFinance",
+        "Microsoft.BingFoodAndDrink",
+        "Microsoft.BingHealthAndFitness",
+        "Microsoft.BingNews",
+        "Microsoft.BingSports",
+        "Microsoft.BingTranslator",
+        "Microsoft.BingTravel",
+        "Microsoft.BingWeather",
+        "Microsoft.CommsPhone",
+        "Microsoft.FreshPaint",
+        "Microsoft.GetHelp",
+        "Microsoft.Getstarted",
+        "Microsoft.Messaging",
+        "Microsoft.Microsoft3DViewer",
+        "Microsoft.MicrosoftOfficeHub",
+        "Microsoft.MicrosoftSolitaireCollection",
+        "Microsoft.MinecraftUWP",
+        "Microsoft.MovieMoments",
+        "Microsoft.NetworkSpeedTest",
+        "Microsoft.Office.OneNote",
+        "Microsoft.Office.Sway",
+        "Microsoft.OneConnect",
+        "Microsoft.People",
+        "Microsoft.PPIProjection",
+        "Microsoft.Print3D",
+        "Microsoft.Reader",
+        "Microsoft.RemoteDesktop",
+        "Microsoft.SkypeApp",
+        "Microsoft.Wallet",
+        "Microsoft.Windows.HolographicFirstRun",
+        "Microsoft.WindowsAlarms",
+        "microsoft.windowscommunicationsapps",
+        "Microsoft.WindowsFeedbackHub",
+        "Microsoft.WindowsMaps",
+        "Microsoft.WindowsPhone",
+        "Microsoft.WindowsReadingList"
+        "Microsoft.WindowsSoundRecorder",
+        "Microsoft.Xbox.TCUI",
+        "Microsoft.XboxApp",
+        "Microsoft.XboxGameCallableUI",
+        "Microsoft.XboxGameOverlay",
+        "Microsoft.XboxIdentityProvider",
+        "Microsoft.XboxSpeechToTextOverlay",
+        "Microsoft.ZuneMusic",
+        "Microsoft.ZuneVideo",
+        "Windows.ContactSupport",
+    
+        # Apps by Third-Party Publishers
+        "26720RandomSaladGamesLLC.*",
+        "2FE3CB00.*",
+        "34791E63.*",
+        "46928bounde.*",
+        "4DF9E0F8.*",
+        "6Wunderkinder.*",
+        "828B5831.*",
+        "89006A2E.*",
+        "9E2F88E3.*",
+        "A278AB0D.*",
+        "AccuWeather.*",
+        "AD2F1837.*",
+        "ActiproSoftwareLLC.*",
+        "AdobeSystemsIncorporated.*",
+        "AMZNMobileLLC.*",
+        "Amazon.com.*",
+        "ClearChannelRadioDigital.*",
+        "CyberLinkCorp.*",
+        "D52A8D61.*",
+        "D5EA27B7.*",
+        "DB6EA5DB.*",
+        "DailymotionSA.*",
+        "DolbyLaboratories.*",
+        "Drawboard.*",
+        "eBayInc.*",
+        "Evernote.*",
+        "E046963F.*",
+        "E0469640.*",
+        "Facebook.*",
+        "flaregamesGmbH.*",
+        "Flipboard.*",
+        "GameGeneticsApps.*",
+        "GAMELOFTSA.*",
+        "GASPMobileGamesInc.*",
+        "GoogleInc.*",
+        "king.com.*",
+        "LenovoCorporation.*",
+        "McAfeeInc.*",
+        "PandoraMediaInc.*",
+        "Playtika.*",
+        "ShazamEntertainmentLtd.*",
+        "SlingTVLLC.*",
+        "SpotifyAB.*",
+        "SymantecCorporation.*",
+        "TelegraphMediaGroupLtd.*",
+        "TheNewYorkTimes.*",
+        "TuneIn.*",
+        "TripAdvisorLLC.*",
+        "Weather.*",
+        "Windows.ContactSupport",
+        "XeroxCorp.*",
+        "YouSendIt.*",
+        "ZinioLLC.*"
+    )
+
+    ForEach ($packages in $packages) {
+        Get-AppxPackage -Name $packages -AllUsers | Remove-AppxPackage -AllUsers
+
+        Get-AppXProvisionedPackage -Online |
+        where DisplayName -EQ $packages |
+        Remove-AppxProvisionedPackage -Online -AllUsers
+    }
+    Write-Host "[WINSETTINGS] Windows Bloatware Removed"
 }
 
 Config-WinSettings
