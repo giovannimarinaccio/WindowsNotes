@@ -5,7 +5,12 @@
 
 function Autoconf-Main($filePath)
 {
+    Clear-Host
+    Write-Host "[AUTOCONF] ##############################################################################"
+    Write-Host "[AUTOCONF] ##############################################################################"
     Write-Host "[AUTOCONF] Starting Autoconfig Scripts"
+    Write-Host "[AUTOCONF] ##############################################################################"
+    Write-Host "[AUTOCONF] ##############################################################################"
 
     $win_major_ver = [Environment]::OSVersion.Version.Major
 
