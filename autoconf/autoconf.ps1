@@ -44,6 +44,7 @@ function Autoconf-Main($filePath)
     Get-FileFromUrl "$scripts_base_url/install_base_software.ps1" "$autoconf_script_dir\install_base_software.ps1"
     
     # run downloaded scripts
+    Invoke-Expression -Command .\"$autoconf_script_dir\install_base_software.ps1"
 
     Write-Host "[AUTOCONF] Autoconfig Ended"
 }
