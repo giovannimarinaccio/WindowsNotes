@@ -10,8 +10,7 @@ function BaseSoftware-Install ()
     $dst_name_key = 'dst_name'
     $cmd_key = 'cmd'
     
-    Write-Host "[BASE-SOFTWARE] $ini.Keys"
-    Write-Host "[BASE-SOFTWARE] $ini"
+    #Write-Host "[BASE-SOFTWARE] $ini.Keys"
     
     # $ini | Format-Table
 
