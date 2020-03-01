@@ -83,6 +83,7 @@ function Get-FileFromUrl ($src_url, $dst_filePath)
         $WebClient = New-Object System.Net.WebClient
         $ret = $webclient.DownloadFile($src_url, $dst_filePath)
     }
+    Write-Host "[BASE-SOFTWARE] Download COMPLETED !!!"
     return $ret
 }
 
