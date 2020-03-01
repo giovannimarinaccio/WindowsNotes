@@ -16,7 +16,7 @@ function Autoconf-Main($filePath)
     }
 
     # Path for the workdir
-    $autoconf_dir = "C:\autoconf\"
+    $autoconf_dir = "C:\autoconf"
     $scripts_base_url="https://raw.githubusercontent.com/giovannimarinaccio/WindowsNotes/master/autoconf"
 
     # Check if work directory exists if not create it
