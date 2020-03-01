@@ -96,7 +96,7 @@ function Get-FileFromUrl ($src_url, $dst_filePath)
 
     if (Get-Command 'Invoke-Webrequest')
     {
-         $ret = Invoke-WebRequest -URI $src_url -OutFile $dst_filePath
+         $ret = Invoke-WebRequest -URI $src_url -OutFile $dst_filePath -Headers @{"Cache-Control"="no-cache"}
     }
     else
     {
